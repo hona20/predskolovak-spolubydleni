@@ -16,9 +16,9 @@ export const VranovMeetupTips: React.FC = () => {
         <div className="meetup-grid">
           <div className="meetup-item">
             <ShieldCheck size={32} color="#5AC8AF" />
-            <h3 className="meetup-title">100% Bezpečné prostředí</h3>
+            <h3 className="meetup-title">Jen lidé z Vranovu</h3>
             <p className="meetup-desc">
-              Žádné anonymní FB skupiny plné podvodníků a falešných inzerátů. Všichni jsou reální studenti a prváci MUNI.
+              Žádné anonymní FB skupiny plné podvodníků. Inzeráty píšou reální studenti, kteří jedou na Předškolovák – a potkáte se osobně ještě před podpisem smlouvy.
             </p>
           </div>
 

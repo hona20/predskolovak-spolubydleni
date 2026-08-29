@@ -79,7 +79,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({ initialTab = 'gdpr', onC
 
               <h4>3. Právo na okamžité smazání údajů (Právo být zapomenut)</h4>
               <p>
-                Svůj vytvořený inzerát můžete <strong>kdykoliv okamžitě a bezplatně smazat</strong> přímo v aplikaci kliknutím na tlačítko <em>„Smazat můj inzerát“</em> v detailu vašeho inzerátu. Smazáním dojde k okamžitému odstranění údajů z vašeho zařízení.
+                Svůj vytvořený inzerát můžete <strong>kdykoliv okamžitě a bezplatně smazat</strong> přímo v aplikaci přes tlačítko <em>„Správa inzerátu“</em> v horní liště – stačí zadat váš tajný PIN kód a potvrdit smazání. Smazáním dojde k okamžitému odstranění údajů z vašeho zařízení.
               </p>
 
               <h4>4. Předávání třetím stranám</h4>

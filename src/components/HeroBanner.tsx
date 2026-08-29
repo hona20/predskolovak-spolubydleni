@@ -15,7 +15,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onOpenCreateModal }) => 
         <div className="hero-card">
           <div className="hero-pill">
             <MapPin size={16} />
-            <span>Kemp Vranovská pláž • Seznamovák pro prváky MUNI</span>
+            <span>Vranovská přehrada • Seznamovák pro prváky MUNI</span>
           </div>
 
           <h1 className="hero-title" style={{ maxWidth: '800px' }}>
@@ -60,9 +60,9 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onOpenCreateModal }) => 
             <div className="stat-item" style={{ borderLeft: '1px solid rgba(255,255,255,0.12)', paddingLeft: '24px' }}>
               <span className="stat-value" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <ShieldCheck size={24} color="#5AC8AF" />
-                Ověřeno emailem
+                PIN kód
               </span>
-              <span className="stat-label">Bez falešných inzerátů</span>
+              <span className="stat-label">Spravuj inzerát kdykoliv</span>
             </div>
 
             <div className="stat-item" style={{ borderLeft: '1px solid rgba(255,255,255,0.12)', paddingLeft: '24px' }}>
