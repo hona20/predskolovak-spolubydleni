@@ -13,6 +13,8 @@ export const ProfileList: React.FC<ProfileListProps> = ({ onSelectProfile, onOpe
   const { filteredProfiles, profiles, setFilters } = useProfiles();
 
   if (filteredProfiles.length === 0) {
+    const noAdsAtAll = profiles.length === 0;
+
     return (
       <div
         style={{
@@ -25,25 +27,31 @@ export const ProfileList: React.FC<ProfileListProps> = ({ onSelectProfile, onOpe
         }}
       >
         <SearchX size={48} color="var(--text-muted)" style={{ margin: '0 auto 16px' }} />
-        <h3 style={{ fontSize: '1.5rem', marginBottom: '8px' }}>Žádný inzerát neodpovídá zadaným filtrům</h3>
+        <h3 style={{ fontSize: '1.5rem', marginBottom: '8px' }}>
+          {noAdsAtAll ? 'Zatím tu není žádný inzerát' : 'Žádný inzerát neodpovídá zadaným filtrům'}
+        </h3>
         <p style={{ color: 'var(--text-muted)', maxWidth: '480px', margin: '0 auto 24px' }}>
-          Zkus upravit nebo zrušit nastavené filtry, nebo buď první, kdo v této kategorii přidá svůj inzerát!
+          {noAdsAtAll
+            ? 'Buď první, kdo si tu najde spolubydlení – přidej svůj inzerát a uvidí ho i ostatní účastníci Předškolováku.'
+            : 'Zkus upravit nebo zrušit nastavené filtry, nebo buď první, kdo v této kategorii přidá svůj inzerát!'}
         </p>
 
         <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
-          <button
-            type="button"
-            className="btn btn-md btn-outline"
-            onClick={() =>
-              setFilters({
-                searchQuery: '',
-                turnus: 'all',
-                onlySaved: false,
-              })
-            }
-          >
-            Zobrazit všechny ({profiles.length}) inzerátů
-          </button>
+          {!noAdsAtAll && (
+            <button
+              type="button"
+              className="btn btn-md btn-outline"
+              onClick={() =>
+                setFilters({
+                  searchQuery: '',
+                  turnus: 'all',
+                  onlySaved: false,
+                })
+              }
+            >
+              Zobrazit všechny ({profiles.length}) inzerátů
+            </button>
+          )}
 
           <button
             type="button"
