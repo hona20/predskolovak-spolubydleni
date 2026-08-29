@@ -202,7 +202,7 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
                 style={{ justifyContent: 'center', textAlign: 'center', padding: '10px' }}
                 onClick={() => setType('looking_for_flatmates')}
               >
-                🤝 Hledáme byt společně
+                🤝 Hledejme byt společně
               </button>
             </div>
           </div>

@@ -77,14 +77,19 @@ export const LegalModal: React.FC<LegalModalProps> = ({ initialTab = 'gdpr', onC
                 Veškeré zadávání údajů v aplikaci je zcela dobrovolné. Nemusíte nahrávat vlastní fotografii (můžete využít předpřipravené emoji avatary), nemusíte uvádět své plné jméno ani telefonní číslo.
               </p>
 
-              <h4>3. Právo na okamžité smazání údajů (Právo být zapomenut)</h4>
+              <h4>3. Kde jsou údaje uložené</h4>
               <p>
-                Svůj vytvořený inzerát můžete <strong>kdykoliv okamžitě a bezplatně smazat</strong> přímo v aplikaci přes tlačítko <em>„Správa inzerátu“</em> v horní liště – stačí zadat váš tajný PIN kód a potvrdit smazání. Smazáním dojde k okamžitému odstranění údajů z vašeho zařízení.
+                Váš inzerát je uložen v zabezpečené databázi (poskytovatel Supabase, EU), aby ho mohli vidět i ostatní účastníci Předškolováku – k tomu appka slouží. Bez tohoto sdílení by inzeráty nikdo jiný neviděl.
               </p>
 
-              <h4>4. Předávání třetím stranám</h4>
+              <h4>4. Právo na okamžité smazání údajů (Právo být zapomenut)</h4>
               <p>
-                Vaše osobní údaje <strong>nejsou a nikdy nebudou prodávány, poskytovány ani sdíleny</strong> s žádnými třetími stranami pro marketingové či komerční účely.
+                Svůj vytvořený inzerát můžete <strong>kdykoliv okamžitě a bezplatně smazat</strong> přímo v aplikaci přes tlačítko <em>„Správa inzerátu“</em> v horní liště – stačí zadat váš tajný PIN kód a potvrdit smazání. Smazáním dojde k okamžitému a trvalému odstranění údajů z databáze.
+              </p>
+
+              <h4>5. Předávání třetím stranám</h4>
+              <p>
+                Vaše osobní údaje <strong>nejsou a nikdy nebudou prodávány, poskytovány ani sdíleny</strong> s žádnými třetími stranami pro marketingové či komerční účely. Údaje zpracovává pouze technický poskytovatel databázového úložiště (Supabase) v roli zpracovatele, nikoliv jako samostatná třetí strana s vlastními marketingovými zájmy.
               </p>
             </div>
           )}
@@ -93,12 +98,12 @@ export const LegalModal: React.FC<LegalModalProps> = ({ initialTab = 'gdpr', onC
             <div className="legal-text-content">
               <h3>🍪 Používání souborů cookies a lokálního úložiště</h3>
               <p>
-                Webová aplikace využívá moderní webové technologie lokálního úložiště (<em>HTML5 LocalStorage</em>) pro zajištění správného fungování funkcí bez nutnosti vytvářet uživatelské účty a hesla.
+                Samotný obsah inzerátů appka ukládá do sdílené databáze (viz záložka GDPR), aby je viděli i ostatní účastníci. Vedle toho appka využívá lokální úložiště prohlížeče (<em>HTML5 LocalStorage</em>) pro pár věcí, které se týkají jen tebe a tvého zařízení – bez nutnosti vytvářet účet a heslo.
               </p>
 
               <h4>K čemu lokální úložiště slouží:</h4>
               <ul>
-                <li><strong>Uložení tvého inzerátu:</strong> Aby tvůj inzerát zůstal aktivní v prohlížeči i po obnovení stránky.</li>
+                <li><strong>Tvůj tajný PIN kód:</strong> Aby appka poznala, který inzerát je „tvůj" a nabídla ti k němu rychlou správu i po zavření prohlížeče.</li>
                 <li><strong>Oblíbené inzeráty:</strong> Zapamatování profilů, které sis označil/a hvězdičkou / srdíčkem.</li>
                 <li><strong>Nastavení a filtry:</strong> Uchování tvého nastavení filtrů a volby souhlasu s cookies.</li>
               </ul>

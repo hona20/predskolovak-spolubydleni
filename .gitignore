@@ -34,3 +34,6 @@ dist-ssr
 # Temp & Cache
 .tempmediaStorage
 .cache
+
+# Supabase CLI
+supabase/.temp
