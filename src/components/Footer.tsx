@@ -62,6 +62,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegalModal }) => {
         <p style={{ fontSize: '0.8125rem', color: '#64748b', marginTop: '6px' }}>
           Předškolovák Spolubydlení – Neoficiální komunitní aplikace pro bezpečné seznámení budoucích spolubydlících na Vranovské přehradě. 🏖️
         </p>
+        <p style={{ fontSize: '0.8125rem', color: '#64748b', marginTop: '4px' }}>
+          Podpora a nahlášení problémů:{' '}
+          <a href="mailto:zubik.jan@post.cz" style={{ color: '#60a5fa', textDecoration: 'underline' }}>
+            zubik.jan@post.cz
+          </a>
+        </p>
       </div>
     </footer>
   );

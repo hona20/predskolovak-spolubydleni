@@ -1,13 +1,12 @@
 import React from 'react';
-import { ShieldCheck, Coffee, Users2, Sparkles } from 'lucide-react';
+import { ShieldCheck, Coffee, Users2 } from 'lucide-react';
 
 export const VranovMeetupTips: React.FC = () => {
   return (
     <section className="container">
       <div className="meetup-banner">
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--p-mint)', fontSize: '0.875rem', fontWeight: 700, textTransform: 'uppercase' }}>
-          <Sparkles size={18} />
-          <span>Proč je spolubydlení přes Předškolovák nejlepší?</span>
+          <span>Předškolovák Spolubydlení</span>
         </div>
 
         <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginTop: '8px', color: 'white' }}>

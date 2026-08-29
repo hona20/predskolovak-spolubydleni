@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useProfiles } from '../context/ProfilesContext';
 import { TurnusId, ListingType, Profile } from '../types';
 import { TURNUSY, DEFAULT_AVATARS } from '../data/faculties';
-import { X, UploadCloud, Trash2, Camera, Plus, Sparkles, ShieldAlert } from 'lucide-react';
+import { X, UploadCloud, Trash2, Camera, Plus, ShieldAlert } from 'lucide-react';
 
 interface CreateProfileModalProps {
   onClose: () => void;
@@ -527,7 +527,7 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
 
           <div className="form-group" style={{ marginBottom: '28px' }}>
             <label className="form-label">
-              <span>Email kontakt (volitelný)</span>
+              <span>Email kontakt</span>
               <span className="form-optional-tag">dobrovolné</span>
             </label>
             <input
@@ -553,7 +553,7 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
               type="submit"
               className="btn btn-md btn-primary"
             >
-              <Sparkles size={18} />
+              <span>🏕️</span>
               <span>Vytvořit inzerát a získat kód</span>
               <svg className="btn-arrow-icon" viewBox="0 0 74.5 7.3" fill="currentColor">
                 <path d="M74.3,4.1c0.2-0.2,0.2-0.5,0-0.7l-3.2-3.2c-0.2-0.2-0.5-0.2-0.7,0s-0.2,0.5,0,0.7l2.8,2.8l-2.8,2.8c-0.2,0.2-0.2,0.5,0,0.7s0.5,0.2,0.7,0L74.3,4.1z"/>

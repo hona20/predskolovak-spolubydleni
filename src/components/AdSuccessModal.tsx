@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Camera, Copy, Check, ShieldCheck, X, Sparkles } from 'lucide-react';
+import { Camera, Copy, Check, ShieldCheck, X } from 'lucide-react';
 
 interface AdSuccessModalProps {
   code: string;
@@ -55,7 +55,7 @@ export const AdSuccessModal: React.FC<AdSuccessModalProps> = ({ code, onClose })
               margin: '0 auto 12px',
             }}
           >
-            <Sparkles size={32} color="#5AC8AF" />
+            <span style={{ fontSize: '2rem' }}>🎉</span>
           </div>
 
           <h2 style={{ fontSize: '1.5rem', fontWeight: 900, marginBottom: '6px', color: 'white' }}>

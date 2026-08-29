@@ -1,6 +1,6 @@
 import React from 'react';
 import { useProfiles } from '../context/ProfilesContext';
-import { Plus, User, Heart, Sparkles, KeyRound } from 'lucide-react';
+import { Plus, User, Heart, KeyRound } from 'lucide-react';
 
 interface HeaderProps {
   onOpenCreateModal: () => void;
@@ -23,7 +23,6 @@ export const Header: React.FC<HeaderProps> = ({
         <span>
           Aplikace je v pilotním provozu pro účastníky Předškolováku 2026 na Vranově
         </span>
-        <Sparkles size={13} color="#F59E0B" className="d-none d-sm-inline" />
       </div>
 
       <header className="app-header">
@@ -35,7 +34,6 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="brand-tagline">
               <div className="brand-title-row">
                 <span className="brand-title">Spolubydlení</span>
-                <span className="beta-badge">BETA</span>
               </div>
               <span className="brand-sub">MUNI • Vranovská pláž</span>
             </div>

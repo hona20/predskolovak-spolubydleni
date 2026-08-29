@@ -2,7 +2,7 @@ import React from 'react';
 import { Profile } from '../types';
 import { useProfiles } from '../context/ProfilesContext';
 import { TURNUSY } from '../data/faculties';
-import { Heart, MapPin, Sparkles } from 'lucide-react';
+import { Heart, MapPin } from 'lucide-react';
 
 interface ProfileCardProps {
   profile: Profile;
@@ -105,7 +105,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile, onSelect }) =
         {/* Meta Row: Turnus & Price */}
         <div className="card-meta-row">
           <div className="meta-turnus">
-            <Sparkles size={14} />
+            <span>📅</span>
             <span>{turnusInfo ? turnusInfo.shortName : 'Vranovská pláž'}</span>
           </div>
 

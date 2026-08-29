@@ -2,7 +2,6 @@ import React from 'react';
 import { useProfiles } from '../context/ProfilesContext';
 import { TURNUSY } from '../data/faculties';
 import { TurnusId } from '../types';
-import { Sparkles } from 'lucide-react';
 
 export const TurnusFilter: React.FC = () => {
   const { filters, setFilters, profiles } = useProfiles();
@@ -23,8 +22,7 @@ export const TurnusFilter: React.FC = () => {
           >
             <div className="tab-name">
               <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Sparkles size={16} color="var(--p-primary)" />
-                Všechny turnusy
+                🏕️ Všechny turnusy
               </span>
               <span className="tab-badge">{getTurnusCount('all')}</span>
             </div>
