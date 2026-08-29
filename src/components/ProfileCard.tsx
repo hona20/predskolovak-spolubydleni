@@ -20,10 +20,10 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile, onSelect }) =
       case 'have_room':
         return <span className="listing-type-badge type-have">🔑 Nabízí volný pokoj</span>;
       case 'looking_for_flatmates':
-        return <span className="listing-type-badge type-squad">🤝 Hledá parťáky na byt</span>;
+        return <span className="listing-type-badge type-squad">🤝 Hledá byt společně</span>;
       case 'looking_for_room':
       default:
-        return <span className="listing-type-badge type-looking">🏠 Hledá pokoj</span>;
+        return <span className="listing-type-badge type-looking">🏠 Hledá pokoj/byt</span>;
     }
   };
 

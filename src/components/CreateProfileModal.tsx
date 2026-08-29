@@ -83,7 +83,7 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const cooldown = getSpamCooldownRemaining();
@@ -113,7 +113,7 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
       },
     };
 
-    const res = createProfile(profileData);
+    const res = await createProfile(profileData);
     if (res.success && res.code) {
       onClose();
       onSuccess(res.code);
@@ -179,14 +179,14 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
             <label className="form-label">
               <span>Typ inzerátu</span>
             </label>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '8px' }}>
               <button
                 type="button"
                 className={`chip-btn ${type === 'looking_for_room' ? 'active' : ''}`}
                 style={{ justifyContent: 'center', textAlign: 'center', padding: '10px' }}
                 onClick={() => setType('looking_for_room')}
               >
-                🏠 Hledám pokoj
+                🏠 Hledám pokoj/byt
               </button>
               <button
                 type="button"
@@ -202,7 +202,7 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
                 style={{ justifyContent: 'center', textAlign: 'center', padding: '10px' }}
                 onClick={() => setType('looking_for_flatmates')}
               >
-                🤝 Hledáme byt
+                🤝 Hledáme byt společně
               </button>
             </div>
           </div>
@@ -228,7 +228,7 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
           </div>
 
           {/* 3. JMÉNO & FAKULTA */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '16px', marginBottom: '16px' }}>
+          <div className="form-row-2">
             <div>
               <label className="form-label">
                 <span>Jméno / Přezdívka</span>
@@ -258,7 +258,7 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '22px' }}>
+          <div className="form-row-2">
             <div>
               <label className="form-label">
                 <span>Obor / Program</span>
@@ -434,7 +434,7 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
           </div>
 
           {/* 7. BUDGET & VRANOV SPOT */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '22px' }}>
+          <div className="form-row-2">
             <div>
               <label className="form-label">
                 <span>Představa o nájmu (Kč/měsíc)</span>
@@ -465,7 +465,7 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
           </div>
 
           {/* 8. CONTACTS (Instagram / WhatsApp / Messenger / OnlyFans) */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+          <div className="form-row-2">
             <div>
               <label className="form-label">
                 <span>Instagram @handle</span>
@@ -495,7 +495,7 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+          <div className="form-row-2">
             <div>
               <label className="form-label">
                 <span>Messenger</span>

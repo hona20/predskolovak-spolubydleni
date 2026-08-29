@@ -66,7 +66,7 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
     }
   };
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!activeProfile) return;
 
@@ -88,15 +88,15 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
       },
     };
 
-    const success = updateProfileByCode(activeProfile.manageCode, updatedData);
+    const success = await updateProfileByCode(activeProfile.manageCode, updatedData);
     if (success) {
       onClose();
     }
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!activeProfile) return;
-    const success = deleteProfileByCode(activeProfile.manageCode);
+    const success = await deleteProfileByCode(activeProfile.manageCode);
     if (success) {
       onClose();
     }
@@ -214,14 +214,14 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
               <label className="form-label">
                 <span>Typ inzerátu</span>
               </label>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '8px' }}>
                 <button
                   type="button"
                   className={`chip-btn ${type === 'looking_for_room' ? 'active' : ''}`}
                   style={{ justifyContent: 'center', textAlign: 'center', padding: '10px' }}
                   onClick={() => setType('looking_for_room')}
                 >
-                  🏠 Hledám pokoj
+                  🏠 Hledám pokoj/byt
                 </button>
                 <button
                   type="button"
@@ -237,7 +237,7 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
                   style={{ justifyContent: 'center', textAlign: 'center', padding: '10px' }}
                   onClick={() => setType('looking_for_flatmates')}
                 >
-                  🤝 Hledáme byt
+                  🤝 Hledáme byt společně
                 </button>
               </div>
             </div>
@@ -263,7 +263,7 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
             </div>
 
             {/* 3. NAME & FACULTY */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '16px', marginBottom: '16px' }}>
+            <div className="form-row-2">
               <div>
                 <label className="form-label">
                   <span>Jméno / Přezdívka</span>
@@ -302,7 +302,7 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
             </div>
 
             {/* 5. BUDGET & VRANOV SPOT */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+            <div className="form-row-2">
               <div>
                 <label className="form-label">
                   <span>Představa o nájmu (Kč/měsíc)</span>
@@ -329,7 +329,7 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
             </div>
 
             {/* 6. CONTACTS */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+            <div className="form-row-2">
               <div>
                 <label className="form-label">
                   <span>Instagram</span>

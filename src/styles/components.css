@@ -833,6 +833,20 @@
   }
 }
 
+@media (max-width: 640px) {
+  .modal-footer {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .modal-footer > .btn {
+    width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
 .icebreaker-box {
   background: linear-gradient(135deg, #eff6ff 0%, #ecfdf5 100%);
   border: 1.5px dashed var(--p-primary);
@@ -883,6 +897,20 @@
 
 .form-group {
   margin-bottom: 18px;
+}
+
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 640px) {
+  .form-row-2 {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }
 
 .form-label {
