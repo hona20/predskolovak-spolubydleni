@@ -1,9 +1,10 @@
-﻿import React, { createContext, useContext, useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { Profile, FilterState } from '../types';
 import { INITIAL_PROFILES } from '../data/initialProfiles';
 import { isSupabaseConfigured, supabase } from '../lib/supabase';
 import {
   fetchAllProfiles,
+  fetchProfilesByCodes,
   insertProfile,
   updateProfile as apiUpdateProfile,
   deleteProfile as apiDeleteProfile,
@@ -18,7 +19,7 @@ interface ProfilesContextType {
   createProfile: (profileData: Partial<Profile>) => Promise<{ success: boolean; profile?: Profile; code?: string; error?: string }>;
   updateProfileByCode: (code: string, updatedData: Partial<Profile>) => Promise<boolean>;
   deleteProfileByCode: (code: string) => Promise<boolean>;
-  getProfileByCode: (code: string) => Profile | null;
+  getProfileByCode: (code: string) => Promise<Profile | null>;
   toggleSaveProfile: (id: string) => void;
   filteredProfiles: Profile[];
   userCreatedProfile: Profile | null;
@@ -39,21 +40,10 @@ const MAX_ADS_PER_BROWSER = 3;
 const defaultFilters: FilterState = { searchQuery: '', turnus: 'all', onlySaved: false };
 const ProfilesContext = createContext<ProfilesContextType | undefined>(undefined);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function mapRow(row: Record<string, any>): Profile {
-  return {
-    id: row.id, manageCode: row.manage_code, name: row.name ?? undefined,
-    avatar: row.avatar ?? undefined, turnus: row.turnus, type: row.type,
-    faculty: row.faculty ?? undefined, fieldOfStudy: row.field_of_study ?? undefined,
-    bio: row.bio ?? undefined, budget: row.budget ?? undefined,
-    locationPreference: row.location_preference ?? undefined, tags: row.tags ?? [],
-    campSpot: row.camp_spot ?? undefined, contacts: row.contacts ?? {},
-    email: row.email ?? undefined, createdAt: row.created_at, isUserCreated: true,
-  };
-}
-
 export const ProfilesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [remoteProfiles, setRemoteProfiles] = useState<Profile[]>([]);
+  // Profiles matched by a code this device actually holds - these come back WITH manageCode.
+  const [myProfiles, setMyProfiles] = useState<Profile[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [offlineProfiles, setOfflineProfiles] = useState<Profile[]>(() => {
     try { const s = localStorage.getItem(STORAGE_PROFILES_KEY); return s ? JSON.parse(s) : []; } catch { return []; }
@@ -73,37 +63,45 @@ export const ProfilesProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   useEffect(() => { try { localStorage.setItem(STORAGE_SAVED_KEY, JSON.stringify(savedProfileIds)); } catch {} }, [savedProfileIds]);
   useEffect(() => { if (!isSupabaseConfigured) { try { localStorage.setItem(STORAGE_PROFILES_KEY, JSON.stringify(offlineProfiles)); } catch {} } }, [offlineProfiles]);
 
+  // Public browse list. Never carries manage_code for anyone's ad.
   useEffect(() => {
     if (!isSupabaseConfigured || !supabase) { setIsLoading(false); return; }
     let cancelled = false;
+    const reload = () => fetchAllProfiles().then(profiles => { if (!cancelled) setRemoteProfiles(profiles); });
     fetchAllProfiles().then(profiles => { if (!cancelled) { setRemoteProfiles(profiles); setIsLoading(false); } });
+    // Any change just triggers a safe re-fetch - we never read field values out of the
+    // realtime payload itself, so a leaked manage_code can never end up in client state.
     const channel = supabase.channel('profiles-realtime')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'profiles' }, payload => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const r = payload.new as Record<string, any>;
-        setRemoteProfiles(prev => prev.find(p => p.id === r.id) ? prev : [mapRow(r), ...prev]);
-      })
-      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'profiles' }, payload => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const r = payload.new as Record<string, any>;
-        setRemoteProfiles(prev => prev.map(p => p.id === r.id ? mapRow(r) : p));
-      })
-      .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'profiles' }, payload => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const r = payload.old as Record<string, any>;
-        setRemoteProfiles(prev => prev.filter(p => p.id !== r.id));
-      })
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles' }, () => reload())
       .subscribe();
     channelRef.current = channel;
     return () => { cancelled = true; if (supabase && channelRef.current) supabase.removeChannel(channelRef.current); };
   }, []);
+
+  // Re-resolve "my" ads (with manage_code) whenever the set of codes this device holds changes.
+  useEffect(() => {
+    if (!isSupabaseConfigured) { setMyProfiles([]); return; }
+    if (mySavedCodes.length === 0) { setMyProfiles([]); return; }
+    let cancelled = false;
+    fetchProfilesByCodes(mySavedCodes).then(profiles => { if (!cancelled) setMyProfiles(profiles); });
+    return () => { cancelled = true; };
+  }, [mySavedCodes]);
 
   const showToast = useCallback((msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 4000);
   }, []);
 
-  const userProfiles = isSupabaseConfigured ? remoteProfiles : offlineProfiles;
+  // Merge manage_code back in only for the ads this device actually owns.
+  const userProfiles = useMemo(() => {
+    if (!isSupabaseConfigured) return offlineProfiles;
+    if (myProfiles.length === 0) return remoteProfiles;
+    const mineById = new Map(myProfiles.map(p => [p.id, p]));
+    const merged = remoteProfiles.map(p => mineById.get(p.id) ?? p);
+    const knownIds = new Set(remoteProfiles.map(p => p.id));
+    const notYetListed = myProfiles.filter(p => !knownIds.has(p.id));
+    return [...notYetListed, ...merged];
+  }, [remoteProfiles, offlineProfiles, myProfiles]);
 
   const allProfiles = useMemo(() => {
     const remoteIds = new Set(userProfiles.map(p => p.id));
@@ -136,7 +134,7 @@ export const ProfilesProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (mySavedCodes.length >= MAX_ADS_PER_BROWSER) { const m = `Mas jiz vytvoreno ${MAX_ADS_PER_BROWSER} inzeratu.`; showToast(m); return { success: false, error: m }; }
 
     const manageCode = generateManageCode();
-    const newProfile: Profile = {
+    const newProfile: Profile & { manageCode: string } = {
       id: 'user-' + Date.now(), name: profileData.name?.trim() || 'Ucastnik z Vranova',
       avatar: profileData.avatar || '🏕️', turnus: profileData.turnus || 'turnus1',
       type: profileData.type || 'looking_for_room', faculty: profileData.faculty || undefined,
@@ -150,6 +148,7 @@ export const ProfilesProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (isSupabaseConfigured) {
       const ok = await insertProfile(newProfile);
       if (!ok) { const m = '❌ Inzerat se nepodarilo ulozit. Zkus to znovu.'; showToast(m); return { success: false, error: m }; }
+      fetchAllProfiles().then(setRemoteProfiles);
     } else {
       setOfflineProfiles(prev => [newProfile, ...prev]);
     }
@@ -160,20 +159,26 @@ export const ProfilesProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return { success: true, profile: newProfile, code: manageCode };
   };
 
-  const getProfileByCode = (code: string): Profile | null => {
+  const getProfileByCode = async (code: string): Promise<Profile | null> => {
     if (!code) return null;
     const c = code.trim().toUpperCase();
-    return allProfiles.find(p => (p.manageCode || '').toUpperCase() === c) || null;
+    const local = allProfiles.find(p => (p.manageCode || '').toUpperCase() === c);
+    if (local) return local;
+    if (isSupabaseConfigured) return await fetchProfileByCode(c);
+    return null;
   };
 
   const updateProfileByCode = async (code: string, updatedData: Partial<Profile>): Promise<boolean> => {
     if (!code) return false;
     const clean = code.trim().toUpperCase();
     if (isSupabaseConfigured) {
-      let profile = allProfiles.find(p => (p.manageCode || '').toUpperCase() === clean);
-      if (!profile) profile = await fetchProfileByCode(clean) ?? undefined;
+      const profile = await getProfileByCode(clean);
       if (!profile) { showToast('Inzerat s timto kodem nebyl nalezen.'); return false; }
       const ok = await apiUpdateProfile(profile.id, clean, updatedData);
+      if (ok) {
+        fetchAllProfiles().then(setRemoteProfiles);
+        fetchProfilesByCodes(mySavedCodes).then(setMyProfiles);
+      }
       showToast(ok ? 'Inzerat byl uspesne upraven! ✅' : '❌ Nepodarilo se aktualizovat inzerat.');
       return ok;
     } else {
@@ -191,12 +196,16 @@ export const ProfilesProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (!code) return false;
     const clean = code.trim().toUpperCase();
     if (isSupabaseConfigured) {
-      let profile = allProfiles.find(p => (p.manageCode || '').toUpperCase() === clean);
-      if (!profile) profile = await fetchProfileByCode(clean) ?? undefined;
+      const profile = await getProfileByCode(clean);
       if (!profile) { showToast('Inzerat s timto kodem nebyl nalezen.'); return false; }
       const ok = await apiDeleteProfile(profile.id, clean);
-      if (ok) { setMySavedCodes(prev => prev.filter(c => c.toUpperCase() !== clean)); showToast('Inzerat byl trvale smazan. 🗑️'); }
-      else showToast('❌ Nepodarilo se smazat inzerat.');
+      if (ok) {
+        setMySavedCodes(prev => prev.filter(c => c.toUpperCase() !== clean));
+        fetchAllProfiles().then(setRemoteProfiles);
+        showToast('Inzerat byl trvale smazan. 🗑️');
+      } else {
+        showToast('❌ Nepodarilo se smazat inzerat.');
+      }
       return ok;
     } else {
       const before = offlineProfiles.length;

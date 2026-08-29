@@ -1,11 +1,13 @@
-﻿import { supabase, isSupabaseConfigured } from './supabase';
+import { supabase, isSupabaseConfigured } from './supabase';
 import { Profile } from '../types';
+
+const PUBLIC_COLUMNS = 'id,name,avatar,turnus,type,faculty,field_of_study,bio,budget,location_preference,tags,camp_spot,contacts,email,created_at,updated_at';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function rowToProfile(row: any): Profile {
   return {
     id: row.id,
-    manageCode: row.manage_code,
+    manageCode: row.manage_code ?? undefined,
     name: row.name ?? undefined,
     avatar: row.avatar ?? undefined,
     turnus: row.turnus,
@@ -45,24 +47,9 @@ function profileToRow(profile: Partial<Profile> & { manageCode: string }): Recor
   };
 }
 
-export async function fetchAllProfiles(): Promise<Profile[]> {
-  if (!isSupabaseConfigured || !supabase) return [];
-  const { data, error } = await supabase.from('profiles').select('*').order('created_at', { ascending: false });
-  if (error) { console.error('[profilesApi] fetchAllProfiles:', error.message); return []; }
-  return (data ?? []).map(rowToProfile);
-}
-
-export async function insertProfile(profile: Profile): Promise<boolean> {
-  if (!isSupabaseConfigured || !supabase) return false;
-  const { error } = await supabase.from('profiles').insert(profileToRow(profile));
-  if (error) { console.error('[profilesApi] insertProfile:', error.message); return false; }
-  return true;
-}
-
-export async function updateProfile(id: string, manageCode: string, data: Partial<Profile>): Promise<boolean> {
-  if (!isSupabaseConfigured || !supabase) return false;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const payload: Record<string, any> = {};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function buildPatch(data: Partial<Profile>): Record<string, any> {
+  const payload: Record<string, unknown> = {};
   if (data.name !== undefined) payload.name = data.name;
   if (data.avatar !== undefined) payload.avatar = data.avatar;
   if (data.turnus !== undefined) payload.turnus = data.turnus;
@@ -76,21 +63,54 @@ export async function updateProfile(id: string, manageCode: string, data: Partia
   if (data.campSpot !== undefined) payload.camp_spot = data.campSpot;
   if (data.contacts !== undefined) payload.contacts = data.contacts;
   if (data.email !== undefined) payload.email = data.email;
-  const { error } = await supabase.from('profiles').update(payload).eq('id', id).eq('manage_code', manageCode.toUpperCase());
-  if (error) { console.error('[profilesApi] updateProfile:', error.message); return false; }
+  return payload;
+}
+
+// Verejny seznam inzeratu - manage_code se sem uz vubec nenacita
+export async function fetchAllProfiles(): Promise<Profile[]> {
+  if (!isSupabaseConfigured || !supabase) return [];
+  const { data, error } = await supabase.from('profiles').select(PUBLIC_COLUMNS).order('created_at', { ascending: false });
+  if (error) { console.error('[profilesApi] fetchAllProfiles:', error.message); return []; }
+  return (data ?? []).map(rowToProfile);
+}
+
+// Inzeraty, jejichz tajny kod uz mame ulozeny v tomto zarizeni (obsahuje manage_code)
+export async function fetchProfilesByCodes(codes: string[]): Promise<Profile[]> {
+  if (!isSupabaseConfigured || !supabase || codes.length === 0) return [];
+  const { data, error } = await supabase.rpc('get_profiles_by_codes', { p_codes: codes });
+  if (error) { console.error('[profilesApi] fetchProfilesByCodes:', error.message); return []; }
+  return (data ?? []).map(rowToProfile);
+}
+
+export async function insertProfile(profile: Profile & { manageCode: string }): Promise<boolean> {
+  if (!isSupabaseConfigured || !supabase) return false;
+  const { error } = await supabase.from('profiles').insert(profileToRow(profile));
+  if (error) { console.error('[profilesApi] insertProfile:', error.message); return false; }
   return true;
+}
+
+export async function updateProfile(id: string, manageCode: string, data: Partial<Profile>): Promise<boolean> {
+  if (!isSupabaseConfigured || !supabase) return false;
+  const { data: ok, error } = await supabase.rpc('update_profile_by_code', {
+    p_id: id,
+    p_code: manageCode,
+    p_patch: buildPatch(data),
+  });
+  if (error) { console.error('[profilesApi] updateProfile:', error.message); return false; }
+  return Boolean(ok);
 }
 
 export async function deleteProfile(id: string, manageCode: string): Promise<boolean> {
   if (!isSupabaseConfigured || !supabase) return false;
-  const { error } = await supabase.from('profiles').delete().eq('id', id).eq('manage_code', manageCode.toUpperCase());
+  const { data: ok, error } = await supabase.rpc('delete_profile_by_code', { p_id: id, p_code: manageCode });
   if (error) { console.error('[profilesApi] deleteProfile:', error.message); return false; }
-  return true;
+  return Boolean(ok);
 }
 
 export async function fetchProfileByCode(code: string): Promise<Profile | null> {
   if (!isSupabaseConfigured || !supabase) return null;
-  const { data, error } = await supabase.from('profiles').select('*').eq('manage_code', code.trim().toUpperCase()).maybeSingle();
+  const { data, error } = await supabase.rpc('get_profile_by_code', { p_code: code.trim().toUpperCase() });
   if (error) { console.error('[profilesApi] fetchProfileByCode:', error.message); return null; }
-  return data ? rowToProfile(data) : null;
+  const row = Array.isArray(data) ? data[0] : data;
+  return row ? rowToProfile(row) : null;
 }

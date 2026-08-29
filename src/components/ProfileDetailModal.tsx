@@ -42,7 +42,7 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
   const isImageAvatar = profile.avatar && profile.avatar.startsWith('data:image');
 
   const handleDelete = () => {
-    deleteProfileByCode(profile.manageCode);
+    deleteProfileByCode(profile.manageCode || '');
     onClose();
   };
 
@@ -130,7 +130,7 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
                   className="btn btn-sm btn-outline"
                   onClick={() => {
                     onClose();
-                    onOpenManageByCode(profile.manageCode);
+                    onOpenManageByCode(profile.manageCode || '');
                   }}
                   style={{ background: 'white', borderColor: '#FCD34D', color: '#B45309', padding: '4px 10px' }}
                 >

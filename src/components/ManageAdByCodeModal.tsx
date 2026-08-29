@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useProfiles } from '../context/ProfilesContext';
 import { Profile, TurnusId, ListingType } from '../types';
 import { TURNUSY, FACULTIES } from '../data/faculties';
@@ -13,38 +13,36 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
   const { getProfileByCode, updateProfileByCode, deleteProfileByCode, mySavedCodes } = useProfiles();
 
   const [enteredCode, setEnteredCode] = useState(initialCode);
-  const [activeProfile, setActiveProfile] = useState<Profile | null>(() => {
-    if (initialCode) {
-      return getProfileByCode(initialCode);
-    }
-    return null;
-  });
+  const [activeProfile, setActiveProfile] = useState<Profile | null>(null);
+  const [isVerifying, setIsVerifying] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
 
   // Edit form state
-  const [name, setName] = useState(activeProfile?.name || '');
-  const [turnus, setTurnus] = useState<TurnusId>(activeProfile?.turnus || 'turnus1');
-  const [type, setType] = useState<ListingType>(activeProfile?.type || 'looking_for_room');
-  const [faculty, setFaculty] = useState(activeProfile?.faculty || '');
-  const [fieldOfStudy, setFieldOfStudy] = useState(activeProfile?.fieldOfStudy || '');
-  const [budget, setBudget] = useState<string>(activeProfile?.budget ? String(activeProfile.budget) : '');
-  const [locationPreference, setLocationPreference] = useState(activeProfile?.locationPreference || '');
-  const [bio, setBio] = useState(activeProfile?.bio || '');
-  const [campSpot, setCampSpot] = useState(activeProfile?.campSpot || '');
-  const [instagram, setInstagram] = useState(activeProfile?.contacts?.instagram || '');
-  const [whatsapp, setWhatsapp] = useState(activeProfile?.contacts?.whatsapp || '');
-  const [messenger, setMessenger] = useState(activeProfile?.contacts?.messenger || '');
-  const [onlyfans, setOnlyfans] = useState(activeProfile?.contacts?.onlyfans || '');
+  const [name, setName] = useState('');
+  const [turnus, setTurnus] = useState<TurnusId>('turnus1');
+  const [type, setType] = useState<ListingType>('looking_for_room');
+  const [faculty, setFaculty] = useState('');
+  const [fieldOfStudy, setFieldOfStudy] = useState('');
+  const [budget, setBudget] = useState<string>('');
+  const [locationPreference, setLocationPreference] = useState('');
+  const [bio, setBio] = useState('');
+  const [campSpot, setCampSpot] = useState('');
+  const [instagram, setInstagram] = useState('');
+  const [whatsapp, setWhatsapp] = useState('');
+  const [messenger, setMessenger] = useState('');
+  const [onlyfans, setOnlyfans] = useState('');
 
-  const handleVerifyCode = (codeToVerify: string) => {
+  const handleVerifyCode = async (codeToVerify: string) => {
     const clean = codeToVerify.trim().toUpperCase();
     if (!clean) {
       setError('Zadejte prosím kód inzerátu.');
       return;
     }
 
-    const found = getProfileByCode(clean);
+    setIsVerifying(true);
+    const found = await getProfileByCode(clean);
+    setIsVerifying(false);
     if (found) {
       setActiveProfile(found);
       setName(found.name || '');
@@ -65,6 +63,13 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
       setError('Inzerát s tímto kódem nebyl nalezen. Zkontrolujte prosím kód.');
     }
   };
+
+  useEffect(() => {
+    if (initialCode) {
+      handleVerifyCode(initialCode);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,7 +93,7 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
       },
     };
 
-    const success = await updateProfileByCode(activeProfile.manageCode, updatedData);
+    const success = await updateProfileByCode(activeProfile.manageCode || '', updatedData);
     if (success) {
       onClose();
     }
@@ -96,7 +101,7 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
 
   const handleDelete = async () => {
     if (!activeProfile) return;
-    const success = await deleteProfileByCode(activeProfile.manageCode);
+    const success = await deleteProfileByCode(activeProfile.manageCode || '');
     if (success) {
       onClose();
     }
@@ -153,6 +158,7 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
                       key={code}
                       type="button"
                       className="btn btn-sm btn-outline"
+                      disabled={isVerifying}
                       onClick={() => {
                         setEnteredCode(code);
                         handleVerifyCode(code);
@@ -199,10 +205,11 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
               <button
                 type="submit"
                 className="btn btn-lg btn-primary"
+                disabled={isVerifying}
                 style={{ width: '100%', justifyContent: 'center' }}
               >
-                <span>Ověřit kód a upravit inzerát</span>
-                <ArrowRight size={18} />
+                <span>{isVerifying ? 'Ověřuji…' : 'Ověřit kód a upravit inzerát'}</span>
+                {!isVerifying && <ArrowRight size={18} />}
               </button>
             </form>
           </div>

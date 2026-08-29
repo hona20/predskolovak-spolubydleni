@@ -33,7 +33,7 @@ export interface Profile {
     email?: string;
   };
   email?: string;              // Volitelný kontakt
-  manageCode: string;          // Tajný kód pro správu/úpravu/smazání inzerátu (např. VRN-8429)
+  manageCode?: string;         // Tajný kód pro správu/úpravu/smazání inzerátu (např. VRN-8429) - server ho vraci jen vlastnikovi
   createdAt: string;
   isUserCreated?: boolean;
 }
