@@ -169,3 +169,44 @@ Popis projektu: Webová aplikace pro hledání spolubydlení a spolubydlících 
 - Čisté a přirozené zobrazení pole bez zbytečných vysvětlivek.
 
 **Status:** Done
+
+---
+
+## [2026-08-29] agent:Gemini | UI Cleanup – BETA badge, Sparkles ikony, email label, favicon, support email
+
+**Changed:**
+- `src/components/Header.tsx`: Odstraněn druhý BETA badge vedle loga. Zůstal pouze jeden v horním proužku `beta-top-bar`. Odstraněna `Sparkles` ikona z top baru.
+- `src/components/ProfileCard.tsx`: Sparkles ikona u turnusu nahrazena emojí 📅.
+- `src/components/TurnusFilter.tsx`: Sparkles ikona u „Všechny turnusy" nahrazena emojí 🏕️.
+- `src/components/VranovMeetupTips.tsx`: Sparkles ikona odstraněna.
+- `src/components/AdSuccessModal.tsx`: Sparkles ikona nahrazena emojí 🎉.
+- `src/components/CreateProfileModal.tsx`: Sparkles nahrazen emojí 🏕️ v submit btn. Opraveno duplicitní popisání emailového pole: `Email kontakt (volitelný)` + badge → `Email kontakt` + badge `dobrovolné`.
+- `src/components/Footer.tsx`: Přidán support email `zubik.jan@post.cz`.
+- `public/favicon.png` [NEW]: Ikona webu – pivo s bakalářskou čepicí, bez pozadí.
+- `index.html`: Favicon nastaven na `/favicon.png` + `apple-touch-icon` pro iOS.
+
+**Decisions:**
+- Sparkles ikony (lucide-react) působily genericky – nahrazeny tematickými emojí.
+- Jeden BETA badge v horním proužku stačí.
+
+**Status:** Done
+
+---
+
+## [2026-08-29] agent:Gemini | GitHub repozitář + pokus o Vercel deploy
+
+**Changed:**
+- `.gitignore` [NEW]: Vytvořen (node_modules, dist, .env, .vercel...).
+- `vercel.json` [NEW]: SPA rewrite pravidlo `/* → /index.html`.
+- Git repozitář inicializován, první commit, branch `main`.
+
+**GitHub:**
+- Repozitář úspěšně vytvořen a pushnut: **https://github.com/hona20/predskolovak-spolubydleni**
+
+**Vercel:**
+- Deploy přes CLI selhal – token `vck_7y...` byl odmítnut jako neplatný.
+- Doporučený postup: Propojit ručně přes https://vercel.com/new → Import `hona20/predskolovak-spolubydleni` → Framework: Vite, Build: `npm run build`, Output: `dist`.
+
+**For others:** Backend zatím NEEXISTUJE – vše běží na localStorage. Data se ztratí při vymazání cache. Pro produkci zvážit Firebase Firestore nebo Supabase.
+
+**Status:** GitHub ✅ Done | Vercel ⚠️ nutné dokončit ručně přes web dashboard
