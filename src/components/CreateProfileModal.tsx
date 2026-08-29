@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useProfiles } from '../context/ProfilesContext';
 import { TurnusId, ListingType, Profile } from '../types';
-import { TURNUSY, DEFAULT_AVATARS } from '../data/faculties';
+import { TURNUSY, DEFAULT_AVATARS, FACULTIES } from '../data/faculties';
 import { X, UploadCloud, Trash2, Camera, Plus, ShieldAlert } from 'lucide-react';
 
 interface CreateProfileModalProps {
@@ -250,11 +250,17 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
               </label>
               <input
                 type="text"
+                list="faculty-options"
                 className="form-input"
                 placeholder="např. FI MUNI, LF MUNI..."
                 value={faculty}
                 onChange={e => setFaculty(e.target.value)}
               />
+              <datalist id="faculty-options">
+                {FACULTIES.map(f => (
+                  <option key={f.code} value={f.name} />
+                ))}
+              </datalist>
             </div>
           </div>
 

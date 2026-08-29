@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useProfiles } from '../context/ProfilesContext';
 import { Profile, TurnusId, ListingType } from '../types';
-import { TURNUSY } from '../data/faculties';
+import { TURNUSY, FACULTIES } from '../data/faculties';
 import { KeyRound, X, Trash2, ArrowRight, Save } from 'lucide-react';
 
 interface ManageAdByCodeModalProps {
@@ -282,10 +282,16 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
                 </label>
                 <input
                   type="text"
+                  list="faculty-options"
                   className="form-input"
                   value={faculty}
                   onChange={e => setFaculty(e.target.value)}
                 />
+                <datalist id="faculty-options">
+                  {FACULTIES.map(f => (
+                    <option key={f.code} value={f.name} />
+                  ))}
+                </datalist>
               </div>
             </div>
 
