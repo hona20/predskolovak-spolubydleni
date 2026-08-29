@@ -19,7 +19,7 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
   const [customPhoto, setCustomPhoto] = useState<string | null>(null);
   const [turnus, setTurnus] = useState<TurnusId>('turnus1');
   const [type, setType] = useState<ListingType>('looking_for_room');
-  const [faculty, setFaculty] = useState('Fakulta informatiky MUNI');
+  const [faculty, setFaculty] = useState('');
   const [fieldOfStudy, setFieldOfStudy] = useState('');
   const [budget, setBudget] = useState<string>('');
   const [locationPreference, setLocationPreference] = useState('');
@@ -248,19 +248,28 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
                 <span>Fakulta / Škola</span>
                 <span className="form-optional-tag">dobrovolné</span>
               </label>
-              <input
-                type="text"
-                list="faculty-options"
+              <select
                 className="form-input"
-                placeholder="např. FI MUNI, LF MUNI..."
                 value={faculty}
                 onChange={e => setFaculty(e.target.value)}
-              />
-              <datalist id="faculty-options">
-                {FACULTIES.map(f => (
-                  <option key={f.code} value={f.name} />
-                ))}
-              </datalist>
+              >
+                <option value="">Vyber fakultu</option>
+                <optgroup label="MUNI">
+                  {FACULTIES.filter(f => f.university === 'MUNI').map(f => (
+                    <option key={f.code} value={f.name}>{f.name}</option>
+                  ))}
+                </optgroup>
+                <optgroup label="VUT">
+                  {FACULTIES.filter(f => f.university === 'VUT').map(f => (
+                    <option key={f.code} value={f.name}>{f.name}</option>
+                  ))}
+                </optgroup>
+                <optgroup label="MENDELU">
+                  {FACULTIES.filter(f => f.university === 'MENDELU').map(f => (
+                    <option key={f.code} value={f.name}>{f.name}</option>
+                  ))}
+                </optgroup>
+              </select>
             </div>
           </div>
 

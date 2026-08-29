@@ -280,18 +280,28 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
                 <label className="form-label">
                   <span>Fakulta / Škola</span>
                 </label>
-                <input
-                  type="text"
-                  list="faculty-options"
+                <select
                   className="form-input"
                   value={faculty}
                   onChange={e => setFaculty(e.target.value)}
-                />
-                <datalist id="faculty-options">
-                  {FACULTIES.map(f => (
-                    <option key={f.code} value={f.name} />
-                  ))}
-                </datalist>
+                >
+                  <option value="">Vyber fakultu</option>
+                  <optgroup label="MUNI">
+                    {FACULTIES.filter(f => f.university === 'MUNI').map(f => (
+                      <option key={f.code} value={f.name}>{f.name}</option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="VUT">
+                    {FACULTIES.filter(f => f.university === 'VUT').map(f => (
+                      <option key={f.code} value={f.name}>{f.name}</option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="MENDELU">
+                    {FACULTIES.filter(f => f.university === 'MENDELU').map(f => (
+                      <option key={f.code} value={f.name}>{f.name}</option>
+                    ))}
+                  </optgroup>
+                </select>
               </div>
             </div>
 
