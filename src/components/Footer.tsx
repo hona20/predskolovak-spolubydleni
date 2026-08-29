@@ -21,9 +21,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegalModal }) => {
           <a href="https://mendelu.predskolovak.cz/" target="_blank" rel="noopener noreferrer">
             Předškolovák MENDELU
           </a>
-          <a href="https://prvakoviny.muni.cz/" target="_blank" rel="noopener noreferrer">
-            Prvákoviny MUNI
-          </a>
           <a href="https://predskolovak.cz/" target="_blank" rel="noopener noreferrer">
             Oficiální web akce
           </a>
