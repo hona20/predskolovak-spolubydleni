@@ -15,7 +15,7 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
   onClose,
   onOpenManageByCode,
 }) => {
-  const { savedProfileIds, toggleSaveProfile, deleteProfileByCode, showToast } = useProfiles();
+  const { savedProfileIds, toggleSaveProfile, deleteProfileByCode, showToast, mySavedCodes } = useProfiles();
   const [copied, setCopied] = useState(false);
   const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
 
@@ -23,6 +23,7 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
 
   const isSaved = savedProfileIds.includes(profile.id);
   const turnusInfo = TURNUSY.find(t => t.id === profile.turnus);
+  const isMine = mySavedCodes.some(c => c.toUpperCase() === (profile.manageCode || '').toUpperCase());
 
   // Generate personalized icebreaker message
   const facultyText = profile.faculty ? profile.faculty : 'MUNI';
@@ -102,8 +103,8 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
 
         {/* Body */}
         <div className="modal-body">
-          {/* USER CODE NOTICE IF USER-CREATED */}
-          {profile.isUserCreated && (
+          {/* USER CODE NOTICE - only for the ad this device actually owns */}
+          {isMine && (
             <div
               style={{
                 background: '#FEF3C7',
@@ -298,7 +299,7 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
           </div>
 
           {/* Delete action if user's own profile */}
-          {profile.isUserCreated && (
+          {isMine && (
             <div style={{ marginTop: '32px', paddingTop: '20px', borderTop: '1px solid #e2e8f0', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '10px' }}>
               {isConfirmingDelete ? (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
