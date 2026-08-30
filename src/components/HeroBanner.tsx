@@ -15,7 +15,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onOpenCreateModal }) => 
         <div className="hero-card">
           <div className="hero-pill">
             <MapPin size={16} />
-            <span>Vranovská přehrada • Seznamovák pro prváky MUNI</span>
+            <span>Vranovská přehrada • Spolubydlení pro studenty v Brně</span>
           </div>
 
           <h1 className="hero-title" style={{ maxWidth: '800px' }}>
@@ -57,18 +57,18 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onOpenCreateModal }) => 
               <span className="stat-label">Aktivních inzerátů</span>
             </div>
 
-            <div className="stat-item" style={{ borderLeft: '1px solid rgba(255,255,255,0.12)', paddingLeft: '24px' }}>
+            <div className="stat-item">
               <span className="stat-value" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <ShieldCheck size={24} color="#5AC8AF" />
+                <ShieldCheck size={22} color="#5AC8AF" />
                 PIN kód
               </span>
               <span className="stat-label">Spravuj inzerát kdykoliv</span>
             </div>
 
-            <div className="stat-item" style={{ borderLeft: '1px solid rgba(255,255,255,0.12)', paddingLeft: '24px' }}>
+            <div className="stat-item">
               <span className="stat-value" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Users size={24} color="#60a5fa" />
-                Vranovská pláž
+                <Users size={22} color="#60a5fa" />
+                Vranov
               </span>
               <span className="stat-label">Osobní setkání na kurzu</span>
             </div>

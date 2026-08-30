@@ -62,7 +62,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({ initialTab = 'gdpr', onC
             <div className="legal-text-content">
               <h3>🛡️ Zásady zpracování a ochrany osobních údajů</h3>
               <p>
-                Tato webová aplikace <strong>Spolubydlení Předškolovák</strong> slouží výhradně pro vzájemné dobrovolné propojení a bezpečné seznámení budoucích studentů a účastníků seznamovacího kurzu Předškolovák na Vranovské přehradě.
+                Tato webová aplikace <strong>Spolubydlení Vranov</strong> slouží výhradně pro vzájemné dobrovolné propojení a bezpečné seznámení budoucích studentů a spolubydlících na Vranovské přehradě. Jde o nezávislý soukromý projekt, provozovaný Janem Zubíkem, bez jakéhokoliv spojení s pořadateli seznamovacích kurzů či univerzitami.
               </p>
 
               <h4>1. Jaké údaje zpracováváme a proč?</h4>
@@ -79,7 +79,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({ initialTab = 'gdpr', onC
 
               <h4>3. Kde jsou údaje uložené</h4>
               <p>
-                Váš inzerát je uložen v zabezpečené databázi (poskytovatel Supabase, EU), aby ho mohli vidět i ostatní účastníci Předškolováku – k tomu appka slouží. Bez tohoto sdílení by inzeráty nikdo jiný neviděl.
+                Váš inzerát je uložen v zabezpečené databázi (poskytovatel Supabase, EU), aby ho mohli vidět i ostatní uživatelé aplikace – k tomu appka slouží. Bez tohoto sdílení by inzeráty nikdo jiný neviděl.
               </p>
 
               <h4>4. Právo na okamžité smazání údajů (Právo být zapomenut)</h4>
@@ -119,19 +119,30 @@ export const LegalModal: React.FC<LegalModalProps> = ({ initialTab = 'gdpr', onC
             <div className="legal-text-content">
               <h3>📜 Pravidla komunity & Bezpečné spolubydlení</h3>
               <p>
-                Všichni uživatelé se zavazují dodržovat pravidla slušnosti a přátelské atmosféry odpovídající duchu Předškolováku.
+                Všichni uživatelé se zavazují dodržovat pravidla slušnosti a přátelské atmosféry.
               </p>
 
               <h4>Základní bezpečnostní doporučení pro studenty:</h4>
               <ol>
-                <li><strong>Osobní seznámení na Vranově:</strong> Využijte Předškolovák k osobnímu setkání na pláži nebo u táboráku dříve, než se zavážete ke společnému nájmu.</li>
+                <li><strong>Osobní seznámení na Vranově:</strong> Domluvte si osobní setkání na pláži nebo u táboráku dříve, než se zavážete ke společnému nájmu.</li>
                 <li><strong>Nikdy neposílejte peníze předem bez smlouvy:</strong> Neplaťte zálohy na nájem ani kauce neověřeným osobám bez platné nájemní smlouvy a osobní prohlídky bytu.</li>
-                <li><strong>Respekt k soukromí:</strong> Zveřejňujte pouze takové kontakty, na kterých si přejete být osloveni ostatními účastníky akce.</li>
+                <li><strong>Respekt k soukromí:</strong> Zveřejňujte pouze takové kontakty, na kterých si přejete být osloveni ostatními uživateli aplikace.</li>
               </ol>
 
               <h4>Zákaz nevhodného obsahu:</h4>
               <p>
                 Je přísně zakázáno vkládat inzeráty s urážlivým, vulgárním, diskriminačním či komerčním obsahem. Takové inzeráty budou neprodleně odstraněny.
+              </p>
+
+              <h4>⚖️ Vyloučení odpovědnosti</h4>
+              <p>
+                Spolubydlení Vranov je nezávislý neoficiální projekt provozovaný soukromou osobou (Jan Zubík), nikoliv oficiální aplikací žádné univerzity, cestovní kanceláře ani pořadatele seznamovacích akcí. Aplikace pouze zprostředkovává vzájemné propojení uživatelů a je poskytována „tak, jak je", bez záruky nepřetržité dostupnosti či bezchybného provozu.
+              </p>
+              <p>
+                Provozovatel neověřuje pravdivost údajů zadaných uživateli a nenese odpovědnost za obsah inzerátů, jednání uživatelů, uzavřené dohody o bydlení ani za jakoukoliv škodu vzniklou v souvislosti s používáním aplikace nebo se seznámením a spolubydlením mezi uživateli. Používání aplikace je zcela dobrovolné a na vlastní riziko uživatele.
+              </p>
+              <p>
+                Provozovatel si vyhrazuje právo kdykoliv upravit obsah aplikace, odstranit libovolný inzerát nebo provoz aplikace ukončit.
               </p>
             </div>
           )}

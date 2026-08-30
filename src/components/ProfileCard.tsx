@@ -44,7 +44,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile, onSelect }) =
             </div>
             <div className="user-name-wrapper">
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span className="user-name">{profile.name || 'Účastník Předškolováku'}</span>
+                <span className="user-name">{profile.name || 'Budoucí spolubydlící'}</span>
               </div>
               {profile.faculty && (
                 <span className="user-faculty-badge">
@@ -78,7 +78,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile, onSelect }) =
 
         {/* Bio */}
         <p className="card-bio">
-          {profile.bio || 'Ahoj, jedu na Předškolovák a rád se seznámím s budoucími spolubydlícími osobně na Vranově!'}
+          {profile.bio || 'Ahoj, hledám spolubydlení a rád se seznámím s budoucími spolubydlícími osobně na Vranově!'}
         </p>
 
         {/* User-created Tags */}

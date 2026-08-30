@@ -1,4 +1,4 @@
-export type TurnusId = 'turnus1' | 'turnus2' | 'turnus_fsps' | 'other';
+export type TurnusId = 'turnus1' | 'turnus2' | 'other';
 
 export type ListingType = 'looking_for_room' | 'have_room' | 'looking_for_flatmates';
 
@@ -28,7 +28,6 @@ export interface Profile {
     instagram?: string;
     whatsapp?: string;
     messenger?: string;
-    onlyfans?: string;
     phone?: string;
     email?: string;
   };

@@ -33,7 +33,6 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
   const [instagram, setInstagram] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
   const [messenger, setMessenger] = useState('');
-  const [onlyfans, setOnlyfans] = useState('');
   const [spamError, setSpamError] = useState<string | null>(null);
 
   const handleAddTag = () => {
@@ -109,7 +108,6 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
         instagram: instagram.trim() ? instagram.trim().replace('@', '') : undefined,
         whatsapp: whatsapp.trim() || undefined,
         messenger: messenger.trim() ? messenger.trim().replace('@', '') : undefined,
-        onlyfans: onlyfans.trim() ? onlyfans.trim().replace('@', '') : undefined,
       },
     };
 
@@ -479,7 +477,7 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
             </div>
           </div>
 
-          {/* 8. CONTACTS (Instagram / WhatsApp / Messenger / OnlyFans) */}
+          {/* 8. CONTACTS (Instagram / WhatsApp / Messenger) */}
           <div className="form-row-2">
             <div>
               <label className="form-label">
@@ -527,31 +525,17 @@ export const CreateProfileModal: React.FC<CreateProfileModalProps> = ({ onClose,
 
             <div>
               <label className="form-label">
-                <span>OnlyFans 🔞</span>
+                <span>Email kontakt</span>
                 <span className="form-optional-tag">dobrovolné</span>
               </label>
               <input
-                type="text"
+                type="email"
                 className="form-input"
-                placeholder="např. username"
-                value={onlyfans}
-                onChange={e => setOnlyfans(e.target.value)}
+                placeholder="např. jmeno@mail.muni.cz"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
               />
             </div>
-          </div>
-
-          <div className="form-group" style={{ marginBottom: '28px' }}>
-            <label className="form-label">
-              <span>Email kontakt</span>
-              <span className="form-optional-tag">dobrovolné</span>
-            </label>
-            <input
-              type="email"
-              className="form-input"
-              placeholder="např. jmeno@mail.muni.cz"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
           </div>
 
           {/* SUBMIT BUTTON */}

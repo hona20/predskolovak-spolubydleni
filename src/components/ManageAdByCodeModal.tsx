@@ -31,7 +31,6 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
   const [instagram, setInstagram] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
   const [messenger, setMessenger] = useState('');
-  const [onlyfans, setOnlyfans] = useState('');
 
   const handleVerifyCode = async (codeToVerify: string) => {
     const clean = codeToVerify.trim().toUpperCase();
@@ -57,7 +56,6 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
       setInstagram(found.contacts?.instagram || '');
       setWhatsapp(found.contacts?.whatsapp || '');
       setMessenger(found.contacts?.messenger || '');
-      setOnlyfans(found.contacts?.onlyfans || '');
       setError(null);
     } else {
       setError('Inzerát s tímto kódem nebyl nalezen. Zkontrolujte prosím kód.');
@@ -89,7 +87,6 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
         instagram: instagram.trim() ? instagram.trim().replace('@', '') : undefined,
         whatsapp: whatsapp.trim() || undefined,
         messenger: messenger.trim() ? messenger.trim().replace('@', '') : undefined,
-        onlyfans: onlyfans.trim() ? onlyfans.trim().replace('@', '') : undefined,
       },
     };
 

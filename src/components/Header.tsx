@@ -17,25 +17,17 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <>
-      {/* Top subtle BETA strip */}
-      <div className="beta-top-bar">
-        <span className="beta-top-pill">BETA</span>
-        <span>
-          Aplikace je v pilotním provozu pro účastníky Předškolováku 2026 na Vranově
-        </span>
-      </div>
-
       <header className="app-header">
         <div className="container header-inner">
           <a href="/" className="brand-logo">
             <div className="brand-badge">
-              <span>PŘEDŠKOLOVÁK</span>
+              <span>VRANOV</span>
             </div>
             <div className="brand-tagline">
               <div className="brand-title-row">
                 <span className="brand-title">Spolubydlení</span>
               </div>
-              <span className="brand-sub">MUNI • Vranovská pláž</span>
+              <span className="brand-sub">MUNI • VUT • MENDELU</span>
             </div>
           </a>
 
@@ -43,7 +35,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* SAVED PROFILES BUTTON */}
             <button
               type="button"
-              className={`btn btn-sm ${filters.onlySaved ? 'btn-primary' : 'btn-outline'}`}
+              className={`btn btn-sm ${filters.onlySaved ? 'btn-primary' : 'btn-outline'} btn-icon-mobile`}
               onClick={() => setFilters(prev => ({ ...prev, onlySaved: !prev.onlySaved }))}
               title="Zobrazit uložené inzeráty"
               aria-label="Uložené inzeráty"
@@ -51,7 +43,7 @@ export const Header: React.FC<HeaderProps> = ({
               <Heart size={16} fill={filters.onlySaved ? 'currentColor' : 'none'} />
               <span className="d-none d-md-inline">Oblíbené</span>
               {savedProfileIds.length > 0 && (
-                <span style={{ background: filters.onlySaved ? 'white' : 'var(--p-primary)', color: filters.onlySaved ? 'var(--p-primary)' : 'white', borderRadius: '10px', padding: '1px 6px', fontSize: '0.75rem', fontWeight: 800 }}>
+                <span className="header-badge-count">
                   {savedProfileIds.length}
                 </span>
               )}
@@ -61,25 +53,27 @@ export const Header: React.FC<HeaderProps> = ({
             {userCreatedProfile ? (
               <button
                 type="button"
-                className="btn btn-sm btn-subtle"
+                className="btn btn-sm btn-subtle btn-my-ad"
                 onClick={onOpenMyProfile}
                 title={`Tvůj kód: ${userCreatedProfile.manageCode}`}
                 style={{ background: '#ECFDF5', borderColor: '#A7F3D0', color: '#065F46' }}
               >
-                <User size={16} />
-                <span>Můj inzerát ({userCreatedProfile.manageCode})</span>
+                <User size={15} />
+                <span className="d-none d-md-inline">Můj inzerát ({userCreatedProfile.manageCode})</span>
+                <span className="d-md-none">{userCreatedProfile.manageCode}</span>
               </button>
             ) : null}
 
             {/* MANAGE AD BY CODE */}
             <button
               type="button"
-              className="btn btn-sm btn-outline"
+              className="btn btn-sm btn-outline btn-icon-mobile"
               onClick={onOpenManageByCodeModal}
               title="Upravit nebo smazat inzerát pomocí tajného kódu"
+              aria-label="Správa inzerátu"
             >
               <KeyRound size={15} color="var(--p-primary)" />
-              <span className="d-none d-sm-inline">Správa inzerátu</span>
+              <span className="d-none d-md-inline">Správa inzerátu</span>
             </button>
 
             {/* Desktop CTA (hidden on mobile, replaced by Mobile FAB) */}

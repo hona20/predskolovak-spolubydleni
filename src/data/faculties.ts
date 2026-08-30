@@ -26,14 +26,6 @@ export const TURNUSY: TurnusInfo[] = [
     description: 'Vranovská pláž – druhý celouniverzitní turnus',
   },
   {
-    id: 'turnus_fsps',
-    name: 'Turnus FSpS',
-    shortName: 'FSpS Turnus',
-    dates: '10. 9. – 13. 9. 2026',
-    badgeColor: '#5AC8AF',
-    description: 'Speciální sportovní termín pro Fakultu sportovních studií',
-  },
-  {
     id: 'other',
     name: 'Jiné / VUT & MENDELU',
     shortName: 'Jiné / Brno',

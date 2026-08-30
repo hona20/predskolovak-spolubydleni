@@ -210,3 +210,73 @@ Popis projektu: Webová aplikace pro hledání spolubydlení a spolubydlících 
 **For others:** Backend zatím NEEXISTUJE – vše běží na localStorage. Data se ztratí při vymazání cache. Pro produkci zvážit Firebase Firestore nebo Supabase.
 
 **Status:** GitHub ✅ Done | Vercel ⚠️ nutné dokončit ručně přes web dashboard
+
+---
+
+## [2026-08-30T20:19:03Z] agent:claude | Odstranění značky Předškolovák (právní důvody), BETA odznak, OnlyFans pole
+
+**Changed:**
+- `src/components/Header.tsx`: Odstraněna horní BETA lišta (`beta-top-bar`) i celý odznak. Brand badge z `PŘEDŠKOLOVÁK` na `VRANOV`, podnadpis na `MUNI • VUT • MENDELU`.
+- `src/components/Footer.tsx`: Odstraněny odkazy na oficiální weby `*.predskolovak.cz`. Tagline přepsán na nezávislý projekt, přidáno „Provozovatel: Jan Zubík“.
+- `src/components/LegalModal.tsx`: Odstraněny zmínky „Předškolovák“ v GDPR a Terms textu. Přidána nová sekce „⚖️ Vyloučení odpovědnosti“ (nezávislý neoficiální projekt, žádná záruka, provozovatel neručí za obsah/jednání uživatelů, používání na vlastní riziko).
+- `src/components/VranovMeetupTips.tsx`, `ProfileDetailModal.tsx`, `ProfileCard.tsx`, `ProfileList.tsx`: Texty „Předškolovák“/„Účastník Předškolováku“ nahrazeny generickými („Spolubydlení Vranov“, „Budoucí spolubydlící“).
+- `src/types.ts`, `CreateProfileModal.tsx`, `ManageAdByCodeModal.tsx`, `ProfileDetailModal.tsx`: Odstraněno pole/joke `onlyfans` z `Profile.contacts` a ze všech formulářů a zobrazení kontaktů.
+- `index.html`, `package.json`: Title/meta description a `name` zbaveny „Předškolovák“.
+- `src/styles/components.css`: Odstraněny nepoužívané třídy `.beta-top-bar`, `.beta-top-pill`, `.beta-top-text`, `.beta-badge`.
+
+**Decisions:**
+- Interní `localStorage` klíče (`predskolovak_spolubydleni_*` v `ProfilesContext.tsx`) a `COOKIE_STORAGE_KEY` v `CookieBanner.tsx` ponechány beze změny záměrně – appka běží živě přímo v týdnu akce (30.8.–2.9.2026) a přejmenování klíčů by aktivním uživatelům smazalo uložené kódy/oblíbené inzeráty. Nejsou uživatelsky viditelné, takže nehrozí právní expozice.
+- CSS komentáře („Predskolovak.cz“) a `supabase/schema.sql` hlavička ponechány – neviditelné pro uživatele, nulové riziko.
+- Finální název appky zatím prozatímní placeholder „Spolubydlení Vranov“ – čeká se na výběr uživatele z brainstormu jmen.
+
+**For others:**
+- Netknuté zůstaly `plakat-nastenka.pdf` a `qr-predskolovak-spolubydleni.png` (netrackované soubory v rootu) – obsahují staré branding, uživatel o nich byl informován.
+- GitHub repo je aktuálně pojmenován `hona20/predskolovak-spolubydleni` – přejmenování repa nebylo součástí tohoto zásahu.
+- `npx tsc --noEmit` proběhlo bez chyb po všech úpravách.
+
+**Status:** Done
+
+---
+
+## [2026-08-30] agent:Gemini | Oprava mobilního zobrazení, přetečení roletky turnusů a skákání stránky
+
+**Changed:**
+- `src/styles/base.css`: Přidáno striktní `overflow-x: clip;` a `max-width: 100vw;` pro `html`, `body` i `#root`.
+- `src/App.tsx`: Nastaveno `min-width: 0; max-width: 100%; width: 100%; overflow-x: clip;` pro hlavní flex layout a `<main>`.
+- `src/styles/components.css`:
+  - `.turnus-tabs-wrapper` & `.turnus-tabs`: Uzamčena maximální šířka, povolen pouze vnitřní horizontální dotykový posun (`overflow-x: auto; scroll-snap-type: x mandatory`).
+  - `.app-header` & `.header-inner`: Kompaktní zobrazení tlačítek na mobilních zařízeních bez přetečení.
+  - `.hero-stats`: Převedeno na responzivní grid (1 sloupec na úzkých mobilech, 3 sloupce na větších zařízeních).
+- `src/components/Header.tsx`:
+  - Tlačítko `Můj inzerát` na mobilech zkráceno na kompaktní formát (např. `👤 VRN-5039`), na PC plný text.
+  - Tlačítko `Správa inzerátu` na mobilech čistá ikona klíče, na PC plný text.
+- `src/components/HeroBanner.tsx`: Responzivní statistiky a odstranění hardcoded inline paddingu.
+- `src/styles/animations.css`: Plynulá animace `fadeIn` bez `translateY(8px)` skákání při aktualizaci stavu/načtení inzerátů.
+
+**Decisions:**
+- Odstraněna příčina, kdy roletka turnusů roztahovala šířku celé stránky na 1050px. Roletka nyní plynule scrolluje přímo uvnitř obrazovky telefonu.
+- Vyřešeno skokové poskočení layoutu (CLS) při asynchronním načtení inzerátů a kódu inzerátu do hlavičky.
+- Otestováno a verifikováno v mobilním i desktopovém zobrazení.
+
+**For others:**
+- Aplikace má nulový horizontální posun (`scrollWidth === innerWidth`), build prochází čistě (`npm run build`).
+
+**Status:** Done
+
+---
+
+## [2026-08-30] agent:Gemini | Odstranění turnusu FSpS
+
+**Changed:**
+- `src/types.ts`: Odstraněna hodnota `'turnus_fsps'` z typu `TurnusId`.
+- `src/data/faculties.ts`: Odstraněna položka turnusu FSpS ze seznamu `TURNUSY`.
+
+**Decisions:**
+- Turnus FSpS byl kompletně vyřazen z filtrace na hlavní stránce i z výběru turnusů při tvorbě a editaci inzerátu.
+- Fakulta sportovních studií (FSpS) zůstává nadále k dispozici v seznamu fakult pro výběr studia.
+
+**For others:**
+- Aplikace nyní obsahuje pouze turnusy: 1. Turnus MUNI, 2. Turnus MUNI a Jiné / Brno. Build ověřen bez chyb.
+
+**Status:** Done
+

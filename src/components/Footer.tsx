@@ -10,22 +10,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegalModal }) => {
   return (
     <footer className="app-footer">
       <div className="container footer-inner">
-        {/* Official Links */}
-        <div className="footer-links">
-          <a href="https://muj.predskolovak.cz/" target="_blank" rel="noopener noreferrer">
-            Předškolovák MUNI
-          </a>
-          <a href="https://vut.predskolovak.cz/" target="_blank" rel="noopener noreferrer">
-            Předškolovák VUT
-          </a>
-          <a href="https://mendelu.predskolovak.cz/" target="_blank" rel="noopener noreferrer">
-            Předškolovák MENDELU
-          </a>
-          <a href="https://predskolovak.cz/" target="_blank" rel="noopener noreferrer">
-            Oficiální web akce
-          </a>
-        </div>
-
         {/* Legal and Privacy Links */}
         <div className="footer-links" style={{ fontSize: '0.8125rem', opacity: 0.9, gap: '16px', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '16px' }}>
           <button
@@ -57,10 +41,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegalModal }) => {
         </div>
 
         <p style={{ fontSize: '0.8125rem', color: '#64748b', marginTop: '6px' }}>
-          Předškolovák Spolubydlení – Neoficiální komunitní aplikace pro bezpečné seznámení budoucích spolubydlících na Vranovské přehradě. 🏖️
+          Spolubydlení Vranov – Nezávislý soukromý projekt pro bezpečné seznámení budoucích spolubydlících na Vranovské přehradě. Bez spojení s pořadateli seznamovacích kurzů či univerzitami. 🏖️
         </p>
         <p style={{ fontSize: '0.8125rem', color: '#64748b', marginTop: '4px' }}>
-          Podpora a nahlášení problémů:{' '}
+          Provozovatel: Jan Zubík · Podpora a nahlášení problémů:{' '}
           <a href="mailto:zubik.jan@post.cz" style={{ color: '#60a5fa', textDecoration: 'underline' }}>
             zubik.jan@post.cz
           </a>

@@ -30,7 +30,7 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
   const turnusText = turnusInfo ? turnusInfo.name : 'Vranov';
   const nameGreeting = profile.name ? profile.name.split(' ')[0] : 'ahoj';
 
-  const icebreakerMessage = `Čauvec ${nameGreeting}! Koukám na Spolubydlení Předškolovák na tvůj profil. Jedu taky na ${turnusText} na Vranov a studuju na ${facultyText}. Dáme na akci sraz u pláže a pokecáme o spolubydlení?`;
+  const icebreakerMessage = `Čauvec ${nameGreeting}! Koukám na Spolubydlení Vranov na tvůj profil. Jedu taky na ${turnusText} na Vranov a studuju na ${facultyText}. Dáme na akci sraz u pláže a pokecáme o spolubydlení?`;
 
   const handleCopyIcebreaker = () => {
     navigator.clipboard.writeText(icebreakerMessage);
@@ -63,7 +63,7 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800 }}>
-                  {profile.name || 'Účastník Předškolováku'}
+                  {profile.name || 'Budoucí spolubydlící'}
                 </h2>
               </div>
 
@@ -144,7 +144,7 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
           {/* Turnus & Location Details */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '20px' }}>
             <div style={{ background: '#eff6ff', color: '#2563E2', padding: '6px 14px', borderRadius: '12px', fontSize: '0.875rem', fontWeight: 700 }}>
-              📅 {turnusInfo ? `${turnusInfo.name} (${turnusInfo.dates})` : 'Předškolovák Vranov'}
+              📅 {turnusInfo ? `${turnusInfo.name} (${turnusInfo.dates})` : 'Vranov'}
             </div>
 
             {profile.budget && (
@@ -276,21 +276,7 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
                 </a>
               )}
 
-              {/* ONLYFANS */}
-              {profile.contacts?.onlyfans && (
-                <a
-                  href={`https://onlyfans.com/${profile.contacts.onlyfans.replace('@', '')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-md btn-outline"
-                  style={{ borderColor: '#00AFF0', color: '#008ecc', background: '#f0f9ff' }}
-                >
-                  <span style={{ fontSize: '1.1rem' }}>🔞</span>
-                  <span>OnlyFans ({profile.contacts.onlyfans.replace('@', '')})</span>
-                </a>
-              )}
-
-              {!profile.contacts?.instagram && !profile.contacts?.whatsapp && !profile.contacts?.messenger && !profile.contacts?.onlyfans && (
+              {!profile.contacts?.instagram && !profile.contacts?.whatsapp && !profile.contacts?.messenger && (
                 <div style={{ color: 'var(--text-muted)', fontSize: '0.875rem', fontStyle: 'italic', gridColumn: '1 / -1' }}>
                   Účastník nezadal přímé sociální sítě. Potkáte se na Vranově!
                 </div>

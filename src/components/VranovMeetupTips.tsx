@@ -6,7 +6,7 @@ export const VranovMeetupTips: React.FC = () => {
     <section className="container">
       <div className="meetup-banner">
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--p-mint)', fontSize: '0.875rem', fontWeight: 700, textTransform: 'uppercase' }}>
-          <span>Předškolovák Spolubydlení</span>
+          <span>Spolubydlení Vranov</span>
         </div>
 
         <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginTop: '8px', color: 'white' }}>
@@ -18,7 +18,7 @@ export const VranovMeetupTips: React.FC = () => {
             <ShieldCheck size={32} color="#5AC8AF" />
             <h3 className="meetup-title">Jen lidé z Vranovu</h3>
             <p className="meetup-desc">
-              Žádné anonymní FB skupiny plné podvodníků. Inzeráty píšou reální studenti, kteří jedou na Předškolovák – a potkáte se osobně ještě před podpisem smlouvy.
+              Žádné anonymní FB skupiny plné podvodníků. Inzeráty píšou reální studenti, kteří jedou na Vranov – a potkáte se osobně ještě před podpisem smlouvy.
             </p>
           </div>
 

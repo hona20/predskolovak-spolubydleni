@@ -34,7 +34,7 @@ const MainContent = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative', width: '100%', maxWidth: '100vw', overflowX: 'clip', minWidth: 0 }}>
       <Header
         onOpenCreateModal={() => setIsCreateModalOpen(true)}
         onOpenManageByCodeModal={() => handleOpenManageModal()}
@@ -45,7 +45,7 @@ const MainContent = () => {
         }}
       />
 
-      <main style={{ flex: 1 }}>
+      <main style={{ flex: 1, minWidth: 0, width: '100%', maxWidth: '100%' }}>
         <HeroBanner onOpenCreateModal={() => setIsCreateModalOpen(true)} />
         <TurnusFilter />
 

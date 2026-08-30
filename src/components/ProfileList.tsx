@@ -32,7 +32,7 @@ export const ProfileList: React.FC<ProfileListProps> = ({ onSelectProfile, onOpe
         </h3>
         <p style={{ color: 'var(--text-muted)', maxWidth: '480px', margin: '0 auto 24px' }}>
           {noAdsAtAll
-            ? 'Buď první, kdo si tu najde spolubydlení – přidej svůj inzerát a uvidí ho i ostatní účastníci Předškolováku.'
+            ? 'Buď první, kdo si tu najde spolubydlení – přidej svůj inzerát a uvidí ho i ostatní uživatelé.'
             : 'Zkus upravit nebo zrušit nastavené filtry, nebo buď první, kdo v této kategorii přidá svůj inzerát!'}
         </p>
 
@@ -70,7 +70,7 @@ export const ProfileList: React.FC<ProfileListProps> = ({ onSelectProfile, onOpe
     <div style={{ marginBottom: '60px' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
         <h2 style={{ fontSize: '1.4rem', fontWeight: 800 }}>
-          Účastníci Předškolováku ({filteredProfiles.length})
+          Budoucí spolubydlící ({filteredProfiles.length})
         </h2>
       </div>
 
