@@ -25,7 +25,7 @@ export const AdSuccessModal: React.FC<AdSuccessModalProps> = ({ code, onClose })
         {/* Top Banner */}
         <div
           style={{
-            background: 'linear-gradient(135deg, #F2542D 0%, #D8431F 100%)',
+            background: 'linear-gradient(135deg, #0D9488 0%, #0B7A70 100%)',
             color: 'white',
             padding: '24px 28px',
             textAlign: 'center',
@@ -61,7 +61,7 @@ export const AdSuccessModal: React.FC<AdSuccessModalProps> = ({ code, onClose })
           <h2 style={{ fontSize: '1.5rem', fontWeight: 900, marginBottom: '6px', color: 'white' }}>
             Inzerát byl zveřejněn!
           </h2>
-          <p style={{ fontSize: '0.875rem', color: '#DBEAFE', margin: 0 }}>
+          <p style={{ fontSize: '0.875rem', color: '#CCFBF1', margin: 0 }}>
             Ostatní účastníci tě už vidí v seznamu inzerátů na Vranově.
           </p>
         </div>
@@ -121,7 +121,7 @@ export const AdSuccessModal: React.FC<AdSuccessModalProps> = ({ code, onClose })
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 gap: '12px',
-                boxShadow: '0 4px 12px rgba(242, 84, 45, 0.1)',
+                boxShadow: '0 4px 12px rgba(13, 148, 136, 0.1)',
               }}
             >
               <div

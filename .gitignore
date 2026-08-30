@@ -37,3 +37,6 @@ dist-ssr
 
 # Supabase CLI
 supabase/.temp
+
+# Python venv (used for one-off asset/PDF generation)
+.venv

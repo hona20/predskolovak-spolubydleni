@@ -23,7 +23,7 @@ export const VranovMeetupTips: React.FC = () => {
           </div>
 
           <div className="meetup-item">
-            <Coffee size={32} color="#F2542D" />
+            <Coffee size={32} color="#0D9488" />
             <h3 className="meetup-title">Pokec na pláži u drinku</h3>
             <p className="meetup-desc">
               Nemusíš hned podepisovat smlouvu na slepo. Dejte si sraz u stánku nebo na večerním programu a zjistěte, zda máte stejný vibe.

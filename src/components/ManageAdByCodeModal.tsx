@@ -114,7 +114,7 @@ export const ManageAdByCodeModal: React.FC<ManageAdByCodeModalProps> = ({ initia
         {/* Header */}
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{ background: '#EFF6FF', padding: '10px', borderRadius: '12px' }}>
+            <div style={{ background: '#ECFDF5', padding: '10px', borderRadius: '12px' }}>
               <KeyRound size={24} color="var(--p-primary)" />
             </div>
             <div>

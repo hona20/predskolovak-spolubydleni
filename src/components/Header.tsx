@@ -1,6 +1,6 @@
 import React from 'react';
 import { useProfiles } from '../context/ProfilesContext';
-import { Plus, User, Heart, KeyRound, MapPin } from 'lucide-react';
+import { Plus, User, Heart, KeyRound, Users2 } from 'lucide-react';
 
 interface HeaderProps {
   onOpenCreateModal: () => void;
@@ -20,15 +20,12 @@ export const Header: React.FC<HeaderProps> = ({
       <header className="app-header">
         <div className="container header-inner">
           <a href="/" className="brand-logo">
-            <div className="brand-badge">
-              <MapPin size={13} strokeWidth={2.5} />
-              <span>SPOLUBYDLA</span>
+            <div className="brand-mark">
+              <Users2 size={19} strokeWidth={2.3} />
             </div>
             <div className="brand-tagline">
-              <div className="brand-title-row">
-                <span className="brand-title">Spolubydlení</span>
-              </div>
-              <span className="brand-sub">MUNI • VUT • MENDELU</span>
+              <span className="brand-title">Spolubydlení</span>
+              <span className="brand-sub">MUNI · VUT · MENDELU</span>
             </div>
           </a>
 
