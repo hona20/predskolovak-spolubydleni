@@ -67,7 +67,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onOpenCreateModal }) => 
 
             <div className="stat-item">
               <span className="stat-value" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Users size={22} color="#60a5fa" />
+                <Users size={22} color="#F2542D" />
                 Vranov
               </span>
               <span className="stat-label">Osobní setkání na kurzu</span>

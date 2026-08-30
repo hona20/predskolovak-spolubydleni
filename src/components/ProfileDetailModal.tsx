@@ -143,7 +143,7 @@ export const ProfileDetailModal: React.FC<ProfileDetailModalProps> = ({
 
           {/* Turnus & Location Details */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '20px' }}>
-            <div style={{ background: '#eff6ff', color: '#2563E2', padding: '6px 14px', borderRadius: '12px', fontSize: '0.875rem', fontWeight: 700 }}>
+            <div style={{ background: '#FFF1EC', color: '#F2542D', padding: '6px 14px', borderRadius: '12px', fontSize: '0.875rem', fontWeight: 700 }}>
               📅 {turnusInfo ? `${turnusInfo.name} (${turnusInfo.dates})` : 'Vranov'}
             </div>
 

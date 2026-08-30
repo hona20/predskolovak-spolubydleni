@@ -46,7 +46,7 @@
 .btn-primary {
   background-color: var(--p-primary);
   color: var(--text-white);
-  box-shadow: 0 4px 14px rgba(37, 99, 226, 0.3);
+  box-shadow: 0 4px 14px rgba(242, 84, 45, 0.3);
 }
 
 .btn-primary:hover {
@@ -140,25 +140,26 @@
 }
 
 .brand-badge {
-  background: var(--p-primary);
-  color: white;
+  background: rgba(242, 84, 45, 0.08);
+  color: var(--p-primary);
+  border: 1.5px solid rgba(242, 84, 45, 0.2);
   font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 0.8125rem;
-  padding: 5px 8px;
-  border-radius: var(--radius-md);
-  letter-spacing: -0.2px;
+  font-weight: 800;
+  font-size: 0.6875rem;
+  padding: 4px 9px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.2px;
   display: flex;
   align-items: center;
   gap: 4px;
+  flex-shrink: 0;
 }
 
 @media (min-width: 640px) {
   .brand-badge {
-    font-size: 1.15rem;
-    padding: 6px 14px;
-    letter-spacing: -0.3px;
-    gap: 6px;
+    font-size: 0.75rem;
+    padding: 5px 12px;
+    gap: 5px;
   }
 }
 
@@ -271,7 +272,7 @@
   font-weight: 800;
   font-size: 0.9375rem;
   border: none;
-  box-shadow: 0 10px 25px rgba(37, 99, 226, 0.45), 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px rgba(242, 84, 45, 0.45), 0 4px 10px rgba(0, 0, 0, 0.1);
   align-items: center;
   gap: 8px;
   cursor: pointer;
@@ -333,7 +334,7 @@
   right: -20%;
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(37, 99, 226, 0.35) 0%, rgba(90, 200, 175, 0.15) 50%, transparent 70%);
+  background: radial-gradient(circle, rgba(242, 84, 45, 0.35) 0%, rgba(90, 200, 175, 0.15) 50%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -536,7 +537,7 @@
 .turnus-tab.active {
   border-color: var(--p-primary);
   background: var(--p-primary-light);
-  box-shadow: 0 4px 12px rgba(37, 99, 226, 0.15);
+  box-shadow: 0 4px 12px rgba(242, 84, 45, 0.15);
 }
 
 .tab-name {
@@ -630,7 +631,7 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: #eff6ff;
+  background: #FFF1EC;
   border: 1.5px solid var(--border-light);
   display: flex;
   align-items: center;
@@ -705,8 +706,8 @@
 }
 
 .type-looking {
-  background: #EFF6FF;
-  color: #2563E2;
+  background: #FFF1EC;
+  color: #F2542D;
 }
 
 .type-have {
@@ -909,7 +910,7 @@
 }
 
 .icebreaker-box {
-  background: linear-gradient(135deg, #eff6ff 0%, #ecfdf5 100%);
+  background: linear-gradient(135deg, #FFF1EC 0%, #ecfdf5 100%);
   border: 1.5px dashed var(--p-primary);
   border-radius: var(--radius-xl);
   padding: 16px;
@@ -933,7 +934,7 @@
   background: white;
   padding: 12px 14px;
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(37, 99, 226, 0.2);
+  border: 1px solid rgba(242, 84, 45, 0.2);
   margin-bottom: 12px;
   font-style: italic;
   line-height: 1.45;
@@ -1007,7 +1008,7 @@
 
 .form-input:focus {
   border-color: var(--p-primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 226, 0.15);
+  box-shadow: 0 0 0 3px rgba(242, 84, 45, 0.15);
 }
 
 .form-textarea {
@@ -1025,7 +1026,7 @@
 
 .form-textarea:focus {
   border-color: var(--p-primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 226, 0.15);
+  box-shadow: 0 0 0 3px rgba(242, 84, 45, 0.15);
 }
 
 .avatar-selector {
@@ -1056,7 +1057,7 @@
 .avatar-choice.selected {
   border-color: var(--p-primary);
   background: var(--p-primary-light);
-  box-shadow: 0 0 0 2px rgba(37, 99, 226, 0.3);
+  box-shadow: 0 0 0 2px rgba(242, 84, 45, 0.3);
 }
 
 .chip-btn {

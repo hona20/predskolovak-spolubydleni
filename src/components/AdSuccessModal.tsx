@@ -25,7 +25,7 @@ export const AdSuccessModal: React.FC<AdSuccessModalProps> = ({ code, onClose })
         {/* Top Banner */}
         <div
           style={{
-            background: 'linear-gradient(135deg, #2563E2 0%, #1D4ED8 100%)',
+            background: 'linear-gradient(135deg, #F2542D 0%, #D8431F 100%)',
             color: 'white',
             padding: '24px 28px',
             textAlign: 'center',
@@ -121,7 +121,7 @@ export const AdSuccessModal: React.FC<AdSuccessModalProps> = ({ code, onClose })
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 gap: '12px',
-                boxShadow: '0 4px 12px rgba(37, 99, 226, 0.1)',
+                boxShadow: '0 4px 12px rgba(242, 84, 45, 0.1)',
               }}
             >
               <div

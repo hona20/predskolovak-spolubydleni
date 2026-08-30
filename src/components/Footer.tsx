@@ -26,7 +26,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegalModal }) => {
             onClick={() => onOpenLegalModal('cookies')}
             style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
           >
-            <Cookie size={15} color="#60a5fa" />
+            <Cookie size={15} color="#F2542D" />
             <span>Cookies a úložiště</span>
           </button>
 
@@ -45,7 +45,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenLegalModal }) => {
         </p>
         <p style={{ fontSize: '0.8125rem', color: '#64748b', marginTop: '4px' }}>
           Provozovatel: Jan Zubík · Podpora a nahlášení problémů:{' '}
-          <a href="mailto:zubik.jan@post.cz" style={{ color: '#60a5fa', textDecoration: 'underline' }}>
+          <a href="mailto:zubik.jan@post.cz" style={{ color: '#F2542D', textDecoration: 'underline' }}>
             zubik.jan@post.cz
           </a>
         </p>
